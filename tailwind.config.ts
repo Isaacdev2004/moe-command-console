@@ -73,6 +73,8 @@ export default {
 			fontFamily: {
 				mono: ['IBM Plex Mono', 'monospace'],
 				terminal: ['VT323', 'monospace'],
+				typewriter: ['Courier Prime', 'monospace'],
+				spy: ['Special Elite', 'cursive'],
 			},
 			borderRadius: {
 				lg: 'var(--radius)',
@@ -115,6 +117,13 @@ export default {
 				'glow': {
 					'0%, 100%': { boxShadow: '0 0 5px #00ff90' },
 					'50%': { boxShadow: '0 0 20px #00ff90, 0 0 30px #00ff90' }
+				},
+				'glitch': {
+					'0%, 100%': { transform: 'translate(0)' },
+					'20%': { transform: 'translate(-2px, 2px)' },
+					'40%': { transform: 'translate(-2px, -2px)' },
+					'60%': { transform: 'translate(2px, 2px)' },
+					'80%': { transform: 'translate(2px, -2px)' }
 				}
 			},
 			animation: {
@@ -124,7 +133,8 @@ export default {
 				'typing': 'typing 3s steps(40, end)',
 				'blink': 'blink 1s infinite',
 				'scanline': 'scanline 2s linear infinite',
-				'glow': 'glow 2s ease-in-out infinite alternate'
+				'glow': 'glow 2s ease-in-out infinite alternate',
+				'glitch': 'glitch 0.5s infinite'
 			}
 		}
 	},

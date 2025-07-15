@@ -1,11 +1,12 @@
 
 import React from 'react';
 import { Card, CardContent } from '@/components/ui/card';
-import { CheckCircle, Clock, Video, Users, Database } from 'lucide-react';
+import { CheckCircle, Clock, Video, Users, Database, Satellite, Radio, Eye } from 'lucide-react';
 
 interface StatusItem {
   id: string;
   label: string;
+  codename: string;
   status: 'complete' | 'pending' | 'processing';
   timestamp?: string;
   icon: React.ComponentType<any>;
@@ -14,34 +15,39 @@ interface StatusItem {
 const statusItems: StatusItem[] = [
   {
     id: 'forums',
-    label: 'Forum Sync',
+    label: 'Forum Intelligence',
+    codename: 'CHATTER',
     status: 'complete',
     timestamp: '2 hours ago',
     icon: CheckCircle
   },
   {
     id: 'facebook',
-    label: 'FB Group Sync',
+    label: 'Social Network Tap',
+    codename: 'SOCIAL-6',
     status: 'pending',
     icon: Clock
   },
   {
     id: 'videos',
-    label: 'Video Processing',
+    label: 'Video Surveillance',
+    codename: 'EYEWATCH',
     status: 'processing',
     timestamp: 'Processing...',
     icon: Video
   },
   {
     id: 'cadmate',
-    label: 'CADMate Training',
+    label: 'Asset Training',
+    codename: 'MENTOR',
     status: 'complete',
     timestamp: '1 day ago',
     icon: Users
   },
   {
     id: 'database',
-    label: 'Knowledge Base',
+    label: 'Intel Database',
+    codename: 'ARCHIVE',
     status: 'complete',
     timestamp: 'Live',
     icon: Database
@@ -79,13 +85,16 @@ const StatusSidebar: React.FC = () => {
     <div className="w-80 space-y-4">
       <Card className="terminal-window">
         <div className="terminal-header">
-          <span className="text-terminal-green font-terminal">KNOWLEDGE_SYNC.exe</span>
+          <div className="flex items-center space-x-2">
+            <Satellite className="w-4 h-4 text-terminal-green" />
+            <span className="text-terminal-green font-terminal">COMMS_ARRAY.exe</span>
+          </div>
         </div>
         <CardContent className="p-4 space-y-4">
           <div className="text-center">
-            <h3 className="font-terminal text-terminal-green mb-2">System Status</h3>
-            <p className="text-xs text-terminal-green/70 font-mono">
-              Last updated: {new Date().toLocaleString()}
+            <h3 className="font-spy text-terminal-green mb-2">Mission Control</h3>
+            <p className="text-xs text-terminal-green/70 font-typewriter">
+              Last transmission: {new Date().toLocaleString()}
             </p>
           </div>
           
@@ -93,21 +102,26 @@ const StatusSidebar: React.FC = () => {
             {statusItems.map((item) => {
               const Icon = item.icon;
               return (
-                <div key={item.id} className="flex items-center space-x-3 p-2 bg-terminal-green/5 rounded border border-terminal-green/20">
+                <div key={item.id} className="flex items-center space-x-3 p-3 bg-terminal-green/5 rounded border border-terminal-green/20">
                   <div className={`${getStatusColor(item.status)}`}>
                     <Icon className="w-4 h-4" />
                   </div>
                   <div className="flex-1">
                     <div className="flex items-center justify-between">
-                      <span className="text-sm font-terminal text-terminal-green">
-                        {item.label}
-                      </span>
+                      <div className="space-y-1">
+                        <span className="text-sm font-typewriter text-terminal-green block">
+                          {item.label}
+                        </span>
+                        <span className="text-xs font-terminal text-terminal-green/60">
+                          {item.codename}
+                        </span>
+                      </div>
                       <span className="text-xs">
                         {getStatusIcon(item.status)}
                       </span>
                     </div>
                     {item.timestamp && (
-                      <p className="text-xs text-terminal-green/60 font-mono">
+                      <p className="text-xs text-terminal-green/60 font-mono mt-1">
                         {item.timestamp}
                       </p>
                     )}
@@ -121,21 +135,36 @@ const StatusSidebar: React.FC = () => {
       
       <Card className="terminal-window">
         <div className="terminal-header">
-          <span className="text-terminal-green font-terminal">ACTIVITY_LOG.txt</span>
+          <div className="flex items-center space-x-2">
+            <Radio className="w-4 h-4 text-terminal-green" />
+            <span className="text-terminal-green font-terminal">INTEL_FEED.log</span>
+          </div>
         </div>
         <CardContent className="p-4">
-          <div className="space-y-2 text-xs font-mono">
-            <div className="text-terminal-green/80">
-              <span className="text-terminal-green">[12:34:56]</span> New Nic Frost video analyzed
+          <div className="space-y-3 text-xs font-mono">
+            <div className="flex items-start space-x-2">
+              <Eye className="w-3 h-3 text-terminal-green/70 mt-0.5 flex-shrink-0" />
+              <div className="text-terminal-green/80">
+                <span className="text-terminal-green">[12:34:56]</span> Agent Frost video surveillance processed
+              </div>
             </div>
-            <div className="text-terminal-green/80">
-              <span className="text-terminal-green">[11:22:33]</span> Forum thread indexed: "Cabinet door issues"
+            <div className="flex items-start space-x-2">
+              <Eye className="w-3 h-3 text-terminal-green/70 mt-0.5 flex-shrink-0" />
+              <div className="text-terminal-green/80">
+                <span className="text-terminal-green">[11:22:33]</span> Forum chatter indexed: "Cabinet infiltration protocols"
+              </div>
             </div>
-            <div className="text-terminal-green/80">
-              <span className="text-terminal-green">[10:15:42]</span> CNC troubleshooting guide updated
+            <div className="flex items-start space-x-2">
+              <Eye className="w-3 h-3 text-terminal-green/70 mt-0.5 flex-shrink-0" />
+              <div className="text-terminal-green/80">
+                <span className="text-terminal-green">[10:15:42]</span> CNC equipment manual updated
+              </div>
             </div>
-            <div className="text-terminal-green/80">
-              <span className="text-terminal-green">[09:08:21]</span> Database optimization complete
+            <div className="flex items-start space-x-2">
+              <Eye className="w-3 h-3 text-terminal-green/70 mt-0.5 flex-shrink-0" />
+              <div className="text-terminal-green/80">
+                <span className="text-terminal-green">[09:08:21]</span> Database optimization: Mission accomplished
+              </div>
             </div>
           </div>
         </CardContent>
