@@ -9,51 +9,51 @@ All colors MUST be HSL.
 
 @layer base {
   :root {
-    --background: 0 0% 98%;  /* Light cream background */
-    --foreground: 210 15% 25%; /* Dark blue-gray text */
+    --background: 210 17% 65%;  /* Blueprint Blue #7688A7 */
+    --foreground: 223 14% 19%; /* Navy Ink #2B2F3E */
 
-    --card: 0 0% 90%;  /* Warm gray card backgrounds */
-    --card-foreground: 210 15% 25%;
+    --card: 39 29% 89%;  /* Sand Beige #F3EADB */
+    --card-foreground: 223 14% 19%; /* Navy Ink #2B2F3E */
 
-    --popover: 0 0% 90%;
-    --popover-foreground: 210 15% 25%;
+    --popover: 39 29% 89%; /* Sand Beige #F3EADB */
+    --popover-foreground: 223 14% 19%; /* Navy Ink #2B2F3E */
 
-    --primary: 203 39% 44%; /* Muted indigo primary */
-    --primary-foreground: 180 25% 95%;
+    --primary: 213 27% 47%; /* Blueprint Dark Blue #526A88 */
+    --primary-foreground: 39 29% 89%; /* Sand Beige for contrast */
 
-    --secondary: 205 13% 35%; /* Gunmetal gray */
-    --secondary-foreground: 0 0% 98%;
+    --secondary: 223 13% 23%; /* Deep Slate #313843 */
+    --secondary-foreground: 39 29% 89%; /* Sand Beige for contrast */
 
-    --muted: 0 0% 90%; /* Warm gray muted */
-    --muted-foreground: 210 15% 45%;
+    --muted: 36 20% 91%; /* Muted Cream #EEE5D4 */
+    --muted-foreground: 223 13% 23%; /* Deep Slate #313843 */
 
-    --accent: 180 25% 75%; /* Soft cyan accent */
-    --accent-foreground: 210 15% 25%;
+    --accent: 48 8% 84%; /* Cool Gray #D6D4CE */
+    --accent-foreground: 223 14% 19%; /* Navy Ink #2B2F3E */
 
     --destructive: 354 70% 54%; /* Rust red for errors */
-    --destructive-foreground: 0 0% 98%;
+    --destructive-foreground: 39 29% 89%; /* Sand Beige */
 
-    --border: 180 15% 80%; /* Light blue-gray borders */
-    --input: 0 0% 85%; /* Light input backgrounds */
-    --ring: 203 39% 44%; /* Muted indigo focus ring */
+    --border: 212 14% 73%; /* Blueprint Fade #B0BCCF */
+    --input: 39 29% 89%; /* Sand Beige #F3EADB */
+    --ring: 213 27% 47%; /* Blueprint Dark Blue #526A88 */
 
     --radius: 0.5rem;
 
-    --sidebar-background: 0 0% 90%;
-    --sidebar-foreground: 210 15% 25%;
-    --sidebar-primary: 203 39% 44%;
-    --sidebar-primary-foreground: 180 25% 95%;
-    --sidebar-accent: 180 25% 75%;
-    --sidebar-accent-foreground: 210 15% 25%;
-    --sidebar-border: 180 15% 80%;
-    --sidebar-ring: 203 39% 44%;
+    --sidebar-background: 39 29% 89%; /* Sand Beige #F3EADB */
+    --sidebar-foreground: 223 14% 19%; /* Navy Ink #2B2F3E */
+    --sidebar-primary: 213 27% 47%; /* Blueprint Dark Blue #526A88 */
+    --sidebar-primary-foreground: 39 29% 89%; /* Sand Beige */
+    --sidebar-accent: 48 8% 84%; /* Cool Gray #D6D4CE */
+    --sidebar-accent-foreground: 223 14% 19%; /* Navy Ink #2B2F3E */
+    --sidebar-border: 212 14% 73%; /* Blueprint Fade #B0BCCF */
+    --sidebar-ring: 213 27% 47%; /* Blueprint Dark Blue #526A88 */
 
-    /* Terminal theme colors - now light themed */
-    --terminal-bg: 0 0% 98%;
-    --terminal-blue: 203 39% 44%;
-    --terminal-amber: 45 76% 58%;
-    --terminal-red: 354 70% 54%;
-    --terminal-green: 159 30% 55%; /* Desaturated green for success */
+    /* Terminal theme colors - vintage blueprint themed */
+    --terminal-bg: 39 29% 89%; /* Sand Beige #F3EADB */
+    --terminal-blue: 213 27% 47%; /* Blueprint Dark Blue #526A88 */
+    --terminal-amber: 45 76% 58%; /* Keep amber for warnings */
+    --terminal-red: 354 70% 54%; /* Keep red for errors */
+    --terminal-green: 159 30% 55%; /* Keep green for success */
   }
 }
 
@@ -66,14 +66,14 @@ All colors MUST be HSL.
     @apply bg-background text-foreground font-mono;
   }
 
-  /* Terminal-specific styles - updated for light theme */
+  /* Terminal-specific styles - updated for vintage blueprint theme */
   .terminal-window {
-    @apply bg-card border border-primary/30 rounded-lg;
-    box-shadow: 0 0 20px hsl(203 39% 44% / 0.1);
+    @apply bg-card border border-border rounded-lg;
+    box-shadow: 0 0 20px hsl(213 27% 47% / 0.1);
   }
 
   .terminal-header {
-    @apply bg-primary/10 border-b border-primary/30 px-4 py-2 rounded-t-lg;
+    @apply bg-accent/50 border-b border-border px-4 py-2 rounded-t-lg;
   }
 
   .terminal-content {
@@ -92,7 +92,7 @@ All colors MUST be HSL.
     left: 0;
     right: 0;
     height: 2px;
-    background: linear-gradient(90deg, transparent, hsl(203 39% 44%), transparent);
+    background: linear-gradient(90deg, transparent, hsl(213 27% 47%), transparent);
     animation: scanline 2s linear infinite;
     z-index: 1;
   }
@@ -100,7 +100,7 @@ All colors MUST be HSL.
   .typing-cursor::after {
     content: '|';
     animation: blink 1s infinite;
-    color: hsl(203 39% 44%);
+    color: hsl(213 27% 47%);
   }
 
   /* Mobile optimizations */
@@ -135,22 +135,22 @@ All colors MUST be HSL.
   }
 }
 
-/* Custom scrollbar for terminal - light theme */
+/* Custom scrollbar for terminal - vintage blueprint theme */
 .terminal-scroll::-webkit-scrollbar {
   width: 8px;
 }
 
 .terminal-scroll::-webkit-scrollbar-track {
-  background: hsl(0 0% 90%);
+  background: hsl(48 8% 84%);
 }
 
 .terminal-scroll::-webkit-scrollbar-thumb {
-  background: hsl(203 39% 44%);
+  background: hsl(213 27% 47%);
   border-radius: 4px;
 }
 
 .terminal-scroll::-webkit-scrollbar-thumb:hover {
-  background: hsl(203 39% 34%);
+  background: hsl(213 27% 37%);
 }
 
 /* Mobile-friendly scrollbar */
@@ -159,4 +159,3 @@ All colors MUST be HSL.
     width: 6px;
   }
 }
-
