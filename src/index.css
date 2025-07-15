@@ -9,44 +9,44 @@ All colors MUST be HSL.
 
 @layer base {
   :root {
-    --background: 210 11% 5%;  /* #0d0d0d converted to HSL */
-    --foreground: 150 100% 50%; /* #00ff90 converted to HSL */
+    --background: 220 15% 8%;  /* Dark blue-gray background */
+    --foreground: 210 40% 85%; /* Light blue-gray text */
 
-    --card: 210 11% 8%;
-    --card-foreground: 150 100% 50%;
+    --card: 220 15% 10%;
+    --card-foreground: 210 40% 85%;
 
-    --popover: 210 11% 8%;
-    --popover-foreground: 150 100% 50%;
+    --popover: 220 15% 10%;
+    --popover-foreground: 210 40% 85%;
 
-    --primary: 150 100% 50%; /* #00ff90 */
-    --primary-foreground: 210 11% 5%;
+    --primary: 210 100% 65%; /* Professional blue */
+    --primary-foreground: 220 15% 8%;
 
-    --secondary: 210 11% 12%;
-    --secondary-foreground: 150 100% 50%;
+    --secondary: 220 15% 15%;
+    --secondary-foreground: 210 40% 85%;
 
-    --muted: 210 11% 15%;
-    --muted-foreground: 150 40% 70%;
+    --muted: 220 15% 18%;
+    --muted-foreground: 210 20% 60%;
 
-    --accent: 150 100% 50%;
-    --accent-foreground: 210 11% 5%;
+    --accent: 210 100% 65%;
+    --accent-foreground: 220 15% 8%;
 
-    --destructive: 354 70% 54%; /* #ff4757 */
-    --destructive-foreground: 210 11% 95%;
+    --destructive: 0 70% 54%; /* Red for errors */
+    --destructive-foreground: 220 15% 95%;
 
-    --border: 210 11% 20%;
-    --input: 210 11% 15%;
-    --ring: 150 100% 50%;
+    --border: 220 15% 25%;
+    --input: 220 15% 18%;
+    --ring: 210 100% 65%;
 
     --radius: 0.5rem;
 
-    --sidebar-background: 210 11% 8%;
-    --sidebar-foreground: 150 100% 50%;
-    --sidebar-primary: 150 100% 50%;
-    --sidebar-primary-foreground: 210 11% 5%;
-    --sidebar-accent: 210 11% 12%;
-    --sidebar-accent-foreground: 150 100% 50%;
-    --sidebar-border: 210 11% 20%;
-    --sidebar-ring: 150 100% 50%;
+    --sidebar-background: 220 15% 10%;
+    --sidebar-foreground: 210 40% 85%;
+    --sidebar-primary: 210 100% 65%;
+    --sidebar-primary-foreground: 220 15% 8%;
+    --sidebar-accent: 220 15% 15%;
+    --sidebar-accent-foreground: 210 40% 85%;
+    --sidebar-border: 220 15% 25%;
+    --sidebar-ring: 210 100% 65%;
   }
 }
 
@@ -61,12 +61,12 @@ All colors MUST be HSL.
 
   /* Terminal-specific styles */
   .terminal-window {
-    @apply bg-terminal-bg border border-terminal-green/30 rounded-lg;
-    box-shadow: 0 0 20px rgba(0, 255, 144, 0.1);
+    @apply bg-card border border-primary/30 rounded-lg;
+    box-shadow: 0 0 20px hsl(210 100% 65% / 0.1);
   }
 
   .terminal-header {
-    @apply bg-terminal-green/10 border-b border-terminal-green/30 px-4 py-2 rounded-t-lg;
+    @apply bg-primary/10 border-b border-primary/30 px-4 py-2 rounded-t-lg;
   }
 
   .terminal-content {
@@ -85,7 +85,7 @@ All colors MUST be HSL.
     left: 0;
     right: 0;
     height: 2px;
-    background: linear-gradient(90deg, transparent, #00ff90, transparent);
+    background: linear-gradient(90deg, transparent, hsl(210 100% 65%), transparent);
     animation: scanline 2s linear infinite;
     z-index: 1;
   }
@@ -93,7 +93,7 @@ All colors MUST be HSL.
   .typing-cursor::after {
     content: '|';
     animation: blink 1s infinite;
-    color: #00ff90;
+    color: hsl(210 100% 65%);
   }
 
   /* Mobile optimizations */
@@ -134,16 +134,16 @@ All colors MUST be HSL.
 }
 
 .terminal-scroll::-webkit-scrollbar-track {
-  background: #0d0d0d;
+  background: hsl(220 15% 8%);
 }
 
 .terminal-scroll::-webkit-scrollbar-thumb {
-  background: #00ff90;
+  background: hsl(210 100% 65%);
   border-radius: 4px;
 }
 
 .terminal-scroll::-webkit-scrollbar-thumb:hover {
-  background: #00cc73;
+  background: hsl(210 100% 55%);
 }
 
 /* Mobile-friendly scrollbar */

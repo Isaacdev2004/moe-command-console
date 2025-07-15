@@ -24,7 +24,7 @@ const Index = () => {
   };
 
   return (
-    <div className="min-h-screen bg-terminal-bg text-terminal-green">
+    <div className="min-h-screen bg-background text-foreground">
       {/* Hero Section */}
       <HeroSection />
       

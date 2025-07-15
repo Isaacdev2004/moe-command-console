@@ -64,10 +64,10 @@ export default {
 					ring: 'hsl(var(--sidebar-ring))'
 				},
 				terminal: {
-					bg: '#0d0d0d',
-					green: '#00ff90',
-					amber: '#ffbf00',
-					red: '#ff4757'
+					bg: 'hsl(220 15% 8%)',
+					blue: 'hsl(210 100% 65%)',
+					amber: 'hsl(45 100% 60%)',
+					red: 'hsl(0 70% 54%)'
 				}
 			},
 			fontFamily: {
@@ -115,8 +115,8 @@ export default {
 					'100%': { transform: 'translateY(100vh)' }
 				},
 				'glow': {
-					'0%, 100%': { boxShadow: '0 0 5px #00ff90' },
-					'50%': { boxShadow: '0 0 20px #00ff90, 0 0 30px #00ff90' }
+					'0%, 100%': { boxShadow: '0 0 5px hsl(210 100% 65%)' },
+					'50%': { boxShadow: '0 0 20px hsl(210 100% 65%), 0 0 30px hsl(210 100% 65%)' }
 				},
 				'glitch': {
 					'0%, 100%': { transform: 'translate(0)' },
