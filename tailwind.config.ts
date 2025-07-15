@@ -64,10 +64,11 @@ export default {
 					ring: 'hsl(var(--sidebar-ring))'
 				},
 				terminal: {
-					bg: 'hsl(220 15% 8%)',
-					blue: 'hsl(210 100% 65%)',
-					amber: 'hsl(45 100% 60%)',
-					red: 'hsl(0 70% 54%)'
+					bg: 'hsl(var(--terminal-bg))',
+					blue: 'hsl(var(--terminal-blue))',
+					amber: 'hsl(var(--terminal-amber))',
+					red: 'hsl(var(--terminal-red))',
+					green: 'hsl(var(--terminal-green))'
 				}
 			},
 			fontFamily: {
@@ -115,8 +116,8 @@ export default {
 					'100%': { transform: 'translateY(100vh)' }
 				},
 				'glow': {
-					'0%, 100%': { boxShadow: '0 0 5px hsl(210 100% 65%)' },
-					'50%': { boxShadow: '0 0 20px hsl(210 100% 65%), 0 0 30px hsl(210 100% 65%)' }
+					'0%, 100%': { boxShadow: '0 0 5px hsl(203 39% 44%)' },
+					'50%': { boxShadow: '0 0 20px hsl(203 39% 44%), 0 0 30px hsl(203 39% 44%)' }
 				},
 				'glitch': {
 					'0%, 100%': { transform: 'translate(0)' },
@@ -140,3 +141,4 @@ export default {
 	},
 	plugins: [require("tailwindcss-animate")],
 } satisfies Config;
+

@@ -80,7 +80,7 @@ const MissionSelector: React.FC<MissionSelectorProps> = ({ onMissionSelect }) =>
       case 'BETA': return 'text-amber-400';
       case 'GAMMA': return 'text-blue-400';
       case 'DELTA': return 'text-green-400';
-      default: return 'text-terminal-green';
+      default: return 'text-primary';
     }
   };
 
@@ -89,16 +89,16 @@ const MissionSelector: React.FC<MissionSelectorProps> = ({ onMissionSelect }) =>
       <div className="max-w-7xl mx-auto">
         <div className="terminal-window mb-8">
           <div className="terminal-header">
-            <span className="text-terminal-green font-terminal">EQUIPMENT_SELECTION.exe</span>
+            <span className="text-primary font-terminal">EQUIPMENT_SELECTION.exe</span>
           </div>
           <div className="terminal-content">
             <div className="flex items-center space-x-3 mb-4">
-              <Crosshair className="w-6 h-6 text-terminal-green" />
-              <h2 className="text-3xl md:text-4xl font-spy text-terminal-green">
+              <Crosshair className="w-6 h-6 text-primary" />
+              <h2 className="text-3xl md:text-4xl font-spy text-primary">
                 Choose Your Arsenal
               </h2>
             </div>
-            <p className="text-terminal-green/70 font-typewriter tracking-wide">
+            <p className="text-primary/70 font-typewriter tracking-wide">
               Select your specialized equipment package for optimal mission performance
             </p>
           </div>
@@ -115,8 +115,8 @@ const MissionSelector: React.FC<MissionSelectorProps> = ({ onMissionSelect }) =>
                 key={mission.id}
                 className={`cursor-pointer transition-all duration-500 terminal-window hover:scale-102 ${
                   isSelected 
-                    ? 'border-terminal-green shadow-lg shadow-terminal-green/20 animate-glow' 
-                    : 'border-terminal-green/30 hover:border-terminal-green/60'
+                    ? 'border-primary shadow-lg shadow-primary/20 animate-glow' 
+                    : 'border-primary/30 hover:border-primary/60'
                 } ${isScanning ? 'animate-pulse' : ''}`}
                 onClick={() => handleMissionClick(mission)}
               >
@@ -124,14 +124,14 @@ const MissionSelector: React.FC<MissionSelectorProps> = ({ onMissionSelect }) =>
                   {/* Mission Header */}
                   <div className="flex items-start justify-between">
                     <div className={`w-12 h-12 rounded-full flex items-center justify-center ${
-                      isSelected ? 'bg-terminal-green/20' : 'bg-terminal-green/10'
+                      isSelected ? 'bg-primary/20' : 'bg-primary/10'
                     }`}>
                       <Icon className={`w-6 h-6 ${
-                        isSelected ? 'text-terminal-green' : 'text-terminal-green/70'
+                        isSelected ? 'text-primary' : 'text-primary/70'
                       }`} />
                     </div>
                     <div className="flex items-center space-x-2">
-                      <Lock className="w-4 h-4 text-terminal-green/50" />
+                      <Lock className="w-4 h-4 text-primary/50" />
                       <span className={`text-xs font-terminal ${getClearanceColor(mission.clearanceLevel)}`}>
                         {mission.clearanceLevel}
                       </span>
@@ -141,21 +141,21 @@ const MissionSelector: React.FC<MissionSelectorProps> = ({ onMissionSelect }) =>
                   {/* Mission Details */}
                   <div className="space-y-3">
                     <div className="space-y-1">
-                      <h3 className="text-lg font-spy text-terminal-green">
+                      <h3 className="text-lg font-spy text-primary">
                         {mission.codename}
                       </h3>
-                      <p className="text-sm font-typewriter text-terminal-green/80">
+                      <p className="text-sm font-typewriter text-primary/80">
                         {mission.title}
                       </p>
                     </div>
                     
-                    <p className="text-sm text-terminal-green/70 font-mono leading-relaxed">
+                    <p className="text-sm text-primary/70 font-mono leading-relaxed">
                       {mission.description}
                     </p>
 
                     {/* Mission Briefing */}
-                    <div className="pt-2 border-t border-terminal-green/20">
-                      <p className="text-xs text-terminal-green/60 font-mono italic">
+                    <div className="pt-2 border-t border-primary/20">
+                      <p className="text-xs text-primary/60 font-mono italic">
                         BRIEFING: {mission.briefing}
                       </p>
                     </div>
@@ -164,18 +164,18 @@ const MissionSelector: React.FC<MissionSelectorProps> = ({ onMissionSelect }) =>
                   {/* Status Indicators */}
                   <div className="pt-4">
                     {isScanning && (
-                      <div className="text-terminal-green font-terminal text-sm animate-pulse">
+                      <div className="text-primary font-terminal text-sm animate-pulse">
                         <div className="flex items-center space-x-2">
-                          <div className="w-2 h-2 bg-terminal-green rounded-full animate-ping"></div>
+                          <div className="w-2 h-2 bg-primary rounded-full animate-ping"></div>
                           <span>SCANNING EQUIPMENT...</span>
                         </div>
                       </div>
                     )}
                     
                     {isSelected && !isScanning && (
-                      <div className="text-terminal-green font-terminal text-sm">
+                      <div className="text-primary font-terminal text-sm">
                         <div className="flex items-center space-x-2">
-                          <div className="w-2 h-2 bg-terminal-green rounded-full"></div>
+                          <div className="w-2 h-2 bg-primary rounded-full"></div>
                           <span>✓ EQUIPMENT SELECTED</span>
                         </div>
                       </div>
@@ -192,3 +192,4 @@ const MissionSelector: React.FC<MissionSelectorProps> = ({ onMissionSelect }) =>
 };
 
 export default MissionSelector;
+

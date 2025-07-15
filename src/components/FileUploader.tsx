@@ -87,15 +87,15 @@ const FileUploader: React.FC = () => {
         <div className="terminal-window mb-6 md:mb-8">
           <div className="terminal-header">
             <div className="flex items-center space-x-2">
-              <Zap className="w-4 h-4 text-terminal-green animate-pulse" />
-              <span className="text-terminal-green font-terminal text-sm">FILE_ANALYZER.exe</span>
+              <Zap className="w-4 h-4 text-primary animate-pulse" />
+              <span className="text-primary font-terminal text-sm">FILE_ANALYZER.exe</span>
             </div>
           </div>
           <div className="terminal-content">
-            <h2 className="text-2xl md:text-3xl lg:text-4xl font-terminal text-terminal-green mb-2">
+            <h2 className="text-2xl md:text-3xl lg:text-4xl font-terminal text-primary mb-2">
               Mission File Upload
             </h2>
-            <p className="text-terminal-green/70 font-mono text-sm md:text-base">
+            <p className="text-primary/70 font-mono text-sm md:text-base">
               Drop your Mozaik file here for instant tactical analysis
             </p>
           </div>
@@ -105,8 +105,8 @@ const FileUploader: React.FC = () => {
           <Card
             className={`terminal-window cursor-pointer transition-all duration-300 ${
               dragActive 
-                ? 'border-terminal-green shadow-lg shadow-terminal-green/20 animate-glow scale-102' 
-                : 'border-terminal-green/30 hover:border-terminal-green/60 hover:shadow-md hover:shadow-terminal-green/10'
+                ? 'border-primary shadow-lg shadow-primary/20 animate-glow scale-102' 
+                : 'border-primary/30 hover:border-primary/60 hover:shadow-md hover:shadow-primary/10'
             }`}
             onDragEnter={handleDrag}
             onDragLeave={handleDrag}
@@ -114,31 +114,31 @@ const FileUploader: React.FC = () => {
             onDrop={handleDrop}
           >
             <CardContent className="p-6 md:p-12 text-center space-y-4 md:space-y-6">
-              <div className={`mx-auto w-16 h-16 md:w-20 md:h-20 bg-terminal-green/10 rounded-full flex items-center justify-center transition-all duration-300 ${
-                dragActive ? 'scale-110 bg-terminal-green/20' : ''
+              <div className={`mx-auto w-16 h-16 md:w-20 md:h-20 bg-primary/10 rounded-full flex items-center justify-center transition-all duration-300 ${
+                dragActive ? 'scale-110 bg-primary/20' : ''
               }`}>
-                <Upload className={`w-8 h-8 md:w-10 md:h-10 text-terminal-green/70 transition-all duration-300 ${
+                <Upload className={`w-8 h-8 md:w-10 md:h-10 text-primary/70 transition-all duration-300 ${
                   dragActive ? 'animate-bounce' : ''
                 }`} />
               </div>
               
               <div className="space-y-2">
-                <h3 className="text-lg md:text-xl font-terminal text-terminal-green">
+                <h3 className="text-lg md:text-xl font-terminal text-primary">
                   {dragActive ? 'RELEASE TO DEPLOY' : 'Drop Mission Files Here'}
                 </h3>
-                <p className="text-terminal-green/70 font-mono text-sm md:text-base">
+                <p className="text-primary/70 font-mono text-sm md:text-base">
                   or tap to browse classified archives
                 </p>
               </div>
               
               {/* Enhanced format display for mobile */}
               <div className="space-y-3">
-                <p className="text-xs md:text-sm text-terminal-green/60 font-mono">
+                <p className="text-xs md:text-sm text-primary/60 font-mono">
                   SUPPORTED FORMATS:
                 </p>
                 <div className="grid grid-cols-2 md:flex md:justify-center gap-2 md:space-x-4 md:gap-0">
                   {supportedFormats.map((format) => (
-                    <span key={format} className="px-2 py-1 bg-terminal-green/10 text-terminal-green/80 rounded text-xs md:text-sm font-terminal border border-terminal-green/20">
+                    <span key={format} className="px-2 py-1 bg-primary/10 text-primary/80 rounded text-xs md:text-sm font-terminal border border-primary/20">
                       {format}
                     </span>
                   ))}
@@ -154,7 +154,7 @@ const FileUploader: React.FC = () => {
               />
               <Button
                 asChild
-                className="w-full md:w-auto bg-terminal-green/20 hover:bg-terminal-green/30 text-terminal-green border border-terminal-green/50 hover:border-terminal-green transition-all duration-300 font-terminal text-sm md:text-base px-6 py-3"
+                className="w-full md:w-auto bg-primary/20 hover:bg-primary/30 text-primary border border-primary/50 hover:border-primary transition-all duration-300 font-terminal text-sm md:text-base px-6 py-3"
               >
                 <label htmlFor="file-upload" className="cursor-pointer flex items-center justify-center space-x-2">
                   <Upload className="w-4 h-4" />
@@ -170,12 +170,12 @@ const FileUploader: React.FC = () => {
               <CardContent className="p-4 md:p-6">
                 <div className="flex items-center justify-between">
                   <div className="flex items-center space-x-3 md:space-x-4 min-w-0 flex-1">
-                    <FileText className="w-5 h-5 md:w-6 md:h-6 text-terminal-green flex-shrink-0" />
+                    <FileText className="w-5 h-5 md:w-6 md:h-6 text-primary flex-shrink-0" />
                     <div className="min-w-0 flex-1">
-                      <h3 className="font-terminal text-terminal-green truncate text-sm md:text-base">
+                      <h3 className="font-terminal text-primary truncate text-sm md:text-base">
                         {uploadedFile.name}
                       </h3>
-                      <p className="text-xs md:text-sm text-terminal-green/70 font-mono">
+                      <p className="text-xs md:text-sm text-primary/70 font-mono">
                         {(uploadedFile.size / 1024).toFixed(1)} KB • Uploaded
                       </p>
                     </div>
@@ -188,7 +188,7 @@ const FileUploader: React.FC = () => {
                       onClick={resetUpload}
                       variant="ghost"
                       size="sm"
-                      className="text-terminal-green/70 hover:text-terminal-green hover:bg-terminal-green/10 p-1 md:p-2"
+                      className="text-primary/70 hover:text-primary hover:bg-primary/10 p-1 md:p-2"
                     >
                       <span className="text-xs md:text-sm">Reset</span>
                     </Button>
@@ -203,18 +203,18 @@ const FileUploader: React.FC = () => {
                 <CardContent className="p-4 md:p-6">
                   <div className="text-center space-y-4">
                     <div className="flex items-center justify-center space-x-3">
-                      <Loader className="animate-spin w-6 h-6 md:w-8 md:h-8 text-terminal-green" />
+                      <Loader className="animate-spin w-6 h-6 md:w-8 md:h-8 text-primary" />
                       <div className="flex space-x-1">
-                        <div className="w-2 h-2 bg-terminal-green rounded-full animate-bounce"></div>
-                        <div className="w-2 h-2 bg-terminal-green rounded-full animate-bounce" style={{animationDelay: '0.1s'}}></div>
-                        <div className="w-2 h-2 bg-terminal-green rounded-full animate-bounce" style={{animationDelay: '0.2s'}}></div>
+                        <div className="w-2 h-2 bg-primary rounded-full animate-bounce"></div>
+                        <div className="w-2 h-2 bg-primary rounded-full animate-bounce" style={{animationDelay: '0.1s'}}></div>
+                        <div className="w-2 h-2 bg-primary rounded-full animate-bounce" style={{animationDelay: '0.2s'}}></div>
                       </div>
                     </div>
                     <div className="space-y-2">
-                      <p className="font-terminal text-terminal-green animate-pulse text-sm md:text-base">
+                      <p className="font-terminal text-primary animate-pulse text-sm md:text-base">
                         ANALYZING MISSION FILE...
                       </p>
-                      <p className="text-xs md:text-sm text-terminal-green/70 font-mono">
+                      <p className="text-xs md:text-sm text-primary/70 font-mono">
                         Scanning for anomalies and tactical parameters
                       </p>
                     </div>
@@ -226,27 +226,27 @@ const FileUploader: React.FC = () => {
                 <div className="terminal-header">
                   <div className="flex items-center space-x-2">
                     <CheckCircle className="w-4 h-4 text-terminal-green" />
-                    <span className="text-terminal-green font-terminal text-sm">[ANALYSIS_COMPLETE]</span>
+                    <span className="text-primary font-terminal text-sm">[ANALYSIS_COMPLETE]</span>
                   </div>
                 </div>
                 <CardContent className="p-4 md:p-6 space-y-4">
                   <div className="grid gap-4 md:gap-6 lg:grid-cols-2">
                     <div className="space-y-3">
-                      <h4 className="font-terminal text-terminal-green text-sm md:text-base">FILE METADATA:</h4>
+                      <h4 className="font-terminal text-primary text-sm md:text-base">FILE METADATA:</h4>
                       <div className="space-y-1 font-mono text-xs md:text-sm">
-                        <p className="text-terminal-green/80">Type: {analysis.fileType}</p>
+                        <p className="text-primary/80">Type: {analysis.fileType}</p>
                         {analysis.cabinetType && (
-                          <p className="text-terminal-green/80">Cabinet: {analysis.cabinetType}</p>
+                          <p className="text-primary/80">Cabinet: {analysis.cabinetType}</p>
                         )}
                       </div>
                     </div>
                     
                     {analysis.parameters && (
                       <div className="space-y-3">
-                        <h4 className="font-terminal text-terminal-green text-sm md:text-base">PARAMETERS:</h4>
+                        <h4 className="font-terminal text-primary text-sm md:text-base">PARAMETERS:</h4>
                         <div className="space-y-1 font-mono text-xs md:text-sm">
                           {analysis.parameters.map((param, index) => (
-                            <p key={index} className="text-terminal-green/80">• {param}</p>
+                            <p key={index} className="text-primary/80">• {param}</p>
                           ))}
                         </div>
                       </div>
@@ -277,3 +277,4 @@ const FileUploader: React.FC = () => {
 };
 
 export default FileUploader;
+

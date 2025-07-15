@@ -95,10 +95,10 @@ const ChatTerminal: React.FC<ChatTerminalProps> = ({ selectedMission = 'general'
           <div className="terminal-header">
             <div className="flex items-center justify-between">
               <div className="flex items-center space-x-2">
-                <div className="w-3 h-3 bg-terminal-green rounded-full animate-pulse"></div>
-                <span className="text-terminal-green font-terminal">MOE_TERMINAL_v2.1 [SECURE_CHANNEL]</span>
+                <div className="w-3 h-3 bg-primary rounded-full animate-pulse"></div>
+                <span className="text-primary font-terminal">MOE_TERMINAL_v2.1 [SECURE_CHANNEL]</span>
               </div>
-              <div className="text-terminal-green/70 font-terminal text-sm">
+              <div className="text-primary/70 font-terminal text-sm">
                 {selectedMission.toUpperCase()}_MODE
               </div>
             </div>
@@ -113,19 +113,19 @@ const ChatTerminal: React.FC<ChatTerminalProps> = ({ selectedMission = 'general'
                 }`}
               >
                 {message.type === 'assistant' && (
-                  <div className="w-8 h-8 bg-terminal-green/20 rounded-full flex items-center justify-center">
-                    <Bot className="w-4 h-4 text-terminal-green" />
+                  <div className="w-8 h-8 bg-primary/20 rounded-full flex items-center justify-center">
+                    <Bot className="w-4 h-4 text-primary" />
                   </div>
                 )}
                 
                 <div className={`max-w-xs lg:max-w-md px-4 py-2 rounded ${
                   message.type === 'user' 
-                    ? 'bg-terminal-green/20 text-terminal-green border border-terminal-green/30' 
-                    : 'bg-muted/20 text-terminal-green/90 border border-terminal-green/20'
+                    ? 'bg-primary/20 text-primary border border-primary/30' 
+                    : 'bg-muted/20 text-primary/90 border border-primary/20'
                 }`}>
                   <p className="font-mono text-sm">{message.content}</p>
                   <div className="flex items-center justify-between mt-2">
-                    <span className="text-xs text-terminal-green/60 font-terminal">
+                    <span className="text-xs text-primary/60 font-terminal">
                       {message.timestamp.toLocaleTimeString()}
                     </span>
                     
@@ -134,8 +134,8 @@ const ChatTerminal: React.FC<ChatTerminalProps> = ({ selectedMission = 'general'
                         <Button
                           size="sm"
                           variant="ghost"
-                          className={`h-6 w-6 p-0 hover:bg-terminal-green/20 ${
-                            message.rating === 'up' ? 'text-terminal-green' : 'text-terminal-green/50'
+                          className={`h-6 w-6 p-0 hover:bg-primary/20 ${
+                            message.rating === 'up' ? 'text-primary' : 'text-primary/50'
                           }`}
                           onClick={() => handleRating(message.id, 'up')}
                         >
@@ -145,7 +145,7 @@ const ChatTerminal: React.FC<ChatTerminalProps> = ({ selectedMission = 'general'
                           size="sm"
                           variant="ghost"
                           className={`h-6 w-6 p-0 hover:bg-destructive/20 ${
-                            message.rating === 'down' ? 'text-destructive' : 'text-terminal-green/50'
+                            message.rating === 'down' ? 'text-destructive' : 'text-primary/50'
                           }`}
                           onClick={() => handleRating(message.id, 'down')}
                         >
@@ -157,8 +157,8 @@ const ChatTerminal: React.FC<ChatTerminalProps> = ({ selectedMission = 'general'
                 </div>
                 
                 {message.type === 'user' && (
-                  <div className="w-8 h-8 bg-terminal-green/20 rounded-full flex items-center justify-center">
-                    <User className="w-4 h-4 text-terminal-green" />
+                  <div className="w-8 h-8 bg-primary/20 rounded-full flex items-center justify-center">
+                    <User className="w-4 h-4 text-primary" />
                   </div>
                 )}
               </div>
@@ -166,10 +166,10 @@ const ChatTerminal: React.FC<ChatTerminalProps> = ({ selectedMission = 'general'
             
             {isTyping && (
               <div className="flex space-x-3 justify-start">
-                <div className="w-8 h-8 bg-terminal-green/20 rounded-full flex items-center justify-center">
-                  <Bot className="w-4 h-4 text-terminal-green" />
+                <div className="w-8 h-8 bg-primary/20 rounded-full flex items-center justify-center">
+                  <Bot className="w-4 h-4 text-primary" />
                 </div>
-                <div className="bg-muted/20 text-terminal-green/90 border border-terminal-green/20 px-4 py-2 rounded">
+                <div className="bg-muted/20 text-primary/90 border border-primary/20 px-4 py-2 rounded">
                   <p className="font-mono text-sm">
                     <span className="animate-pulse">MOE is typing</span>
                     <span className="animate-blink">...</span>
@@ -181,24 +181,24 @@ const ChatTerminal: React.FC<ChatTerminalProps> = ({ selectedMission = 'general'
             <div ref={messagesEndRef} />
           </div>
           
-          <div className="border-t border-terminal-green/30 p-4">
+          <div className="border-t border-primary/30 p-4">
             <div className="flex space-x-2">
               <Input
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
                 onKeyPress={handleKeyPress}
                 placeholder="Enter your question..."
-                className="bg-transparent border-terminal-green/30 text-terminal-green placeholder:text-terminal-green/50 font-mono focus:border-terminal-green typing-cursor"
+                className="bg-transparent border-primary/30 text-primary placeholder:text-primary/50 font-mono focus:border-primary typing-cursor"
               />
               <Button
                 onClick={handleSend}
                 disabled={!input.trim() || isTyping}
-                className="bg-terminal-green/20 hover:bg-terminal-green/30 text-terminal-green border border-terminal-green/50 hover:border-terminal-green transition-all duration-300"
+                className="bg-primary/20 hover:bg-primary/30 text-primary border border-primary/50 hover:border-primary transition-all duration-300"
               >
                 <Send className="w-4 h-4" />
               </Button>
             </div>
-            <p className="text-xs text-terminal-green/50 font-terminal mt-2">
+            <p className="text-xs text-primary/50 font-terminal mt-2">
               Press Enter to send • Shift+Enter for new line
             </p>
           </div>
@@ -209,3 +209,4 @@ const ChatTerminal: React.FC<ChatTerminalProps> = ({ selectedMission = 'general'
 };
 
 export default ChatTerminal;
+

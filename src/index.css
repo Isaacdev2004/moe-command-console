@@ -9,44 +9,51 @@ All colors MUST be HSL.
 
 @layer base {
   :root {
-    --background: 220 15% 8%;  /* Dark blue-gray background */
-    --foreground: 210 40% 85%; /* Light blue-gray text */
+    --background: 0 0% 98%;  /* Light cream background */
+    --foreground: 210 15% 25%; /* Dark blue-gray text */
 
-    --card: 220 15% 10%;
-    --card-foreground: 210 40% 85%;
+    --card: 0 0% 90%;  /* Warm gray card backgrounds */
+    --card-foreground: 210 15% 25%;
 
-    --popover: 220 15% 10%;
-    --popover-foreground: 210 40% 85%;
+    --popover: 0 0% 90%;
+    --popover-foreground: 210 15% 25%;
 
-    --primary: 210 100% 65%; /* Professional blue */
-    --primary-foreground: 220 15% 8%;
+    --primary: 203 39% 44%; /* Muted indigo primary */
+    --primary-foreground: 180 25% 95%;
 
-    --secondary: 220 15% 15%;
-    --secondary-foreground: 210 40% 85%;
+    --secondary: 205 13% 35%; /* Gunmetal gray */
+    --secondary-foreground: 0 0% 98%;
 
-    --muted: 220 15% 18%;
-    --muted-foreground: 210 20% 60%;
+    --muted: 0 0% 90%; /* Warm gray muted */
+    --muted-foreground: 210 15% 45%;
 
-    --accent: 210 100% 65%;
-    --accent-foreground: 220 15% 8%;
+    --accent: 180 25% 75%; /* Soft cyan accent */
+    --accent-foreground: 210 15% 25%;
 
-    --destructive: 0 70% 54%; /* Red for errors */
-    --destructive-foreground: 220 15% 95%;
+    --destructive: 354 70% 54%; /* Rust red for errors */
+    --destructive-foreground: 0 0% 98%;
 
-    --border: 220 15% 25%;
-    --input: 220 15% 18%;
-    --ring: 210 100% 65%;
+    --border: 180 15% 80%; /* Light blue-gray borders */
+    --input: 0 0% 85%; /* Light input backgrounds */
+    --ring: 203 39% 44%; /* Muted indigo focus ring */
 
     --radius: 0.5rem;
 
-    --sidebar-background: 220 15% 10%;
-    --sidebar-foreground: 210 40% 85%;
-    --sidebar-primary: 210 100% 65%;
-    --sidebar-primary-foreground: 220 15% 8%;
-    --sidebar-accent: 220 15% 15%;
-    --sidebar-accent-foreground: 210 40% 85%;
-    --sidebar-border: 220 15% 25%;
-    --sidebar-ring: 210 100% 65%;
+    --sidebar-background: 0 0% 90%;
+    --sidebar-foreground: 210 15% 25%;
+    --sidebar-primary: 203 39% 44%;
+    --sidebar-primary-foreground: 180 25% 95%;
+    --sidebar-accent: 180 25% 75%;
+    --sidebar-accent-foreground: 210 15% 25%;
+    --sidebar-border: 180 15% 80%;
+    --sidebar-ring: 203 39% 44%;
+
+    /* Terminal theme colors - now light themed */
+    --terminal-bg: 0 0% 98%;
+    --terminal-blue: 203 39% 44%;
+    --terminal-amber: 45 76% 58%;
+    --terminal-red: 354 70% 54%;
+    --terminal-green: 159 30% 55%; /* Desaturated green for success */
   }
 }
 
@@ -59,10 +66,10 @@ All colors MUST be HSL.
     @apply bg-background text-foreground font-mono;
   }
 
-  /* Terminal-specific styles */
+  /* Terminal-specific styles - updated for light theme */
   .terminal-window {
     @apply bg-card border border-primary/30 rounded-lg;
-    box-shadow: 0 0 20px hsl(210 100% 65% / 0.1);
+    box-shadow: 0 0 20px hsl(203 39% 44% / 0.1);
   }
 
   .terminal-header {
@@ -85,7 +92,7 @@ All colors MUST be HSL.
     left: 0;
     right: 0;
     height: 2px;
-    background: linear-gradient(90deg, transparent, hsl(210 100% 65%), transparent);
+    background: linear-gradient(90deg, transparent, hsl(203 39% 44%), transparent);
     animation: scanline 2s linear infinite;
     z-index: 1;
   }
@@ -93,7 +100,7 @@ All colors MUST be HSL.
   .typing-cursor::after {
     content: '|';
     animation: blink 1s infinite;
-    color: hsl(210 100% 65%);
+    color: hsl(203 39% 44%);
   }
 
   /* Mobile optimizations */
@@ -128,22 +135,22 @@ All colors MUST be HSL.
   }
 }
 
-/* Custom scrollbar for terminal */
+/* Custom scrollbar for terminal - light theme */
 .terminal-scroll::-webkit-scrollbar {
   width: 8px;
 }
 
 .terminal-scroll::-webkit-scrollbar-track {
-  background: hsl(220 15% 8%);
+  background: hsl(0 0% 90%);
 }
 
 .terminal-scroll::-webkit-scrollbar-thumb {
-  background: hsl(210 100% 65%);
+  background: hsl(203 39% 44%);
   border-radius: 4px;
 }
 
 .terminal-scroll::-webkit-scrollbar-thumb:hover {
-  background: hsl(210 100% 55%);
+  background: hsl(203 39% 34%);
 }
 
 /* Mobile-friendly scrollbar */
@@ -152,3 +159,4 @@ All colors MUST be HSL.
     width: 6px;
   }
 }
+
