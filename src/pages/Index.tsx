@@ -1,6 +1,7 @@
 
 import React, { useState } from 'react';
 import HeroSection from '@/components/HeroSection';
+import WelcomeMessage from '@/components/WelcomeMessage';
 import MissionSelector from '@/components/MissionSelector';
 import FileUploader from '@/components/FileUploader';
 import ChatTerminal from '@/components/ChatTerminal';
@@ -27,18 +28,21 @@ const Index = () => {
       {/* Hero Section */}
       <HeroSection />
       
+      {/* Welcome Message with MOE's personality */}
+      <WelcomeMessage />
+      
       {/* Mission Selector */}
       <MissionSelector onMissionSelect={handleMissionSelect} />
       
-      {/* File Upload */}
+      {/* Enhanced File Upload */}
       <FileUploader />
       
-      {/* Chat Interface with optional sidebar */}
-      <div className="flex flex-col lg:flex-row gap-8 px-4 pb-16">
-        <div className="flex-1">
+      {/* Chat Interface with improved mobile layout */}
+      <div className="flex flex-col xl:flex-row gap-4 md:gap-8 px-4 pb-8 md:pb-16">
+        <div className="flex-1 min-w-0">
           <ChatTerminal selectedMission={selectedMission?.context || 'general'} />
         </div>
-        <div className="hidden lg:block">
+        <div className="hidden xl:block xl:w-80 flex-shrink-0">
           <StatusSidebar />
         </div>
       </div>

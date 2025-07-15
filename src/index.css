@@ -95,6 +95,37 @@ All colors MUST be HSL.
     animation: blink 1s infinite;
     color: #00ff90;
   }
+
+  /* Mobile optimizations */
+  @media (max-width: 768px) {
+    .terminal-window {
+      border-radius: 0.5rem;
+      margin: 0 0.5rem;
+    }
+    
+    .terminal-content {
+      @apply p-3;
+    }
+    
+    .terminal-header {
+      @apply px-3 py-2;
+    }
+  }
+
+  /* Enhanced mobile touch targets */
+  @media (max-width: 768px) {
+    button, [role="button"], input[type="file"] + label {
+      min-height: 44px;
+      min-width: 44px;
+    }
+  }
+
+  /* Improved mobile typography */
+  @media (max-width: 640px) {
+    .terminal-window {
+      font-size: 0.875rem;
+    }
+  }
 }
 
 /* Custom scrollbar for terminal */
@@ -113,4 +144,11 @@ All colors MUST be HSL.
 
 .terminal-scroll::-webkit-scrollbar-thumb:hover {
   background: #00cc73;
+}
+
+/* Mobile-friendly scrollbar */
+@media (max-width: 768px) {
+  .terminal-scroll::-webkit-scrollbar {
+    width: 6px;
+  }
 }
