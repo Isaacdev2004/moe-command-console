@@ -34,10 +34,7 @@ const Index = () => {
       {/* Mission Selector */}
       <MissionSelector onMissionSelect={handleMissionSelect} />
       
-      {/* Enhanced File Upload */}
-      <FileUploader />
-      
-      {/* Chat Interface with improved mobile layout */}
+      {/* Chat Interface - moved up to be visible on initial load */}
       <div className="flex flex-col xl:flex-row gap-4 md:gap-8 px-4 pb-8 md:pb-16">
         <div className="flex-1 min-w-0">
           <ChatTerminal selectedMission={selectedMission?.context || 'general'} />
@@ -46,6 +43,9 @@ const Index = () => {
           <StatusSidebar />
         </div>
       </div>
+      
+      {/* Enhanced File Upload - moved after chat */}
+      <FileUploader />
       
       {/* Footer */}
       <Footer />
