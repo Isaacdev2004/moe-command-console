@@ -7,6 +7,7 @@ import FileUploader from '@/components/FileUploader';
 import ChatTerminal from '@/components/ChatTerminal';
 import StatusSidebar from '@/components/StatusSidebar';
 import Footer from '@/components/Footer';
+import AuthHeader from '@/components/AuthHeader';
 
 interface Mission {
   id: string;
@@ -24,7 +25,10 @@ const Index = () => {
   };
 
   return (
-    <div className="min-h-screen bg-background text-foreground">
+    <div className="min-h-screen bg-background text-foreground relative">
+      {/* Auth Header */}
+      <AuthHeader />
+      
       {/* Hero Section */}
       <HeroSection />
       
