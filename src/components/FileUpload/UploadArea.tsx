@@ -105,7 +105,7 @@ const UploadArea: React.FC<UploadAreaProps> = ({ onFileSelect, isUploading }) =>
         
         <input
           type="file"
-          accept=".cab,.cabx,.mzb,.xml"
+          accept="application/xml,.xml,.cab,.cabx,.mzb,*/*"
           onChange={handleFileInput}
           className="hidden"
           id="file-upload"
