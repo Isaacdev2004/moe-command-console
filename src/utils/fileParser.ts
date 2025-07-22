@@ -1,4 +1,3 @@
-
 interface ParsedFileData {
   fileName: string;
   fileType: string;
@@ -73,9 +72,9 @@ export class FileParser {
   private static parseXMLFile(file: File, content: string): ParsedFileData {
     try {
       const parser = new DOMParser();
-      const xmlDoc = parser.parseDocument(content);
+      const xmlDoc = parser.parseFromString(content, 'application/xml');
       
-      if (xmlDoc.getElementsByTagName('parseroror').length > 0) {
+      if (xmlDoc.getElementsByTagName('parsererror').length > 0) {
         throw new Error('Invalid XML format');
       }
 
