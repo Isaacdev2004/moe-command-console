@@ -17,7 +17,7 @@ interface ParsingError {
 }
 
 export class FileParser {
-  private static readonly SUPPORTED_EXTENSIONS = ['.cab', '.cabx', '.mzb', '.xml'];
+  private static readonly SUPPORTED_EXTENSIONS = ['.moz', '.dat', '.des', '.xml'];
 
   static async parseFile(file: File): Promise<ParsedFileData | ParsingError> {
     const extension = this.getFileExtension(file.name);
@@ -36,11 +36,12 @@ export class FileParser {
       switch (extension) {
         case '.xml':
           return this.parseXMLFile(file, content);
-        case '.cab':
-        case '.cabx':
-          return this.parseCABFile(file, content);
-        case '.mzb':
-          return this.parseMZBFile(file, content);
+        case '.moz':
+          return this.parseMozFile(file, content);
+        case '.dat':
+          return this.parseDatFile(file, content);
+        case '.des':
+          return this.parseDesFile(file, content);
         default:
           return {
             type: 'UNSUPPORTED_FORMAT',
@@ -67,6 +68,182 @@ export class FileParser {
       reader.onerror = () => reject(new Error('Failed to read file'));
       reader.readAsText(file);
     });
+  }
+
+  private static parseMozFile(file: File, content: string): ParsedFileData {
+    const parameters: string[] = [];
+    const parts: string[] = [];
+    const issues: string[] = [];
+    
+    let cabinetType = 'Mozaik Cabinet';
+    let version = 'MOZ 1.0';
+
+    // Parse MOZ file structure
+    const lines = content.split('\n').filter(line => line.trim());
+    
+    lines.forEach(line => {
+      const trimmed = line.trim();
+      
+      if (trimmed.startsWith('VERSION=')) {
+        version = trimmed.substring(8);
+      } else if (trimmed.startsWith('CABINET_TYPE=') || trimmed.startsWith('TYPE=')) {
+        cabinetType = trimmed.substring(trimmed.indexOf('=') + 1);
+      } else if (trimmed.includes('=') && (trimmed.includes('WIDTH') || trimmed.includes('HEIGHT') || trimmed.includes('DEPTH'))) {
+        const [key, value] = trimmed.split('=');
+        parameters.push(`${key.replace('_', ' ')}: ${value}`);
+      } else if (trimmed.startsWith('PART_') || trimmed.startsWith('COMPONENT_')) {
+        parts.push(trimmed.substring(trimmed.indexOf('_') + 1));
+      }
+    });
+
+    // Basic validation for MOZ files
+    if (!parameters.some(p => p.includes('WIDTH'))) {
+      issues.push('Missing width specification');
+    }
+    if (!parameters.some(p => p.includes('HEIGHT'))) {
+      issues.push('Missing height specification');
+    }
+    if (parts.length === 0) {
+      issues.push('No parts defined in MOZ file');
+    }
+
+    return {
+      fileName: file.name,
+      fileType: 'MOZ',
+      version,
+      cabinetType,
+      parameters,
+      parts,
+      constraints: [],
+      issues,
+      metadata: { lineCount: lines.length }
+    };
+  }
+
+  private static parseDatFile(file: File, content: string): ParsedFileData {
+    const parameters: string[] = [];
+    const parts: string[] = [];
+    const issues: string[] = [];
+    
+    let cabinetType = 'Mozaik Data File';
+    let version = 'DAT 1.0';
+
+    // Parse DAT file structure (binary or structured data format)
+    const lines = content.split('\n').filter(line => line.trim());
+    
+    // Look for structured data patterns
+    lines.forEach(line => {
+      const trimmed = line.trim();
+      
+      if (trimmed.includes('=')) {
+        const [key, value] = trimmed.split('=');
+        const cleanKey = key.trim().toUpperCase();
+        
+        if (cleanKey.includes('VERSION')) {
+          version = value.trim();
+        } else if (cleanKey.includes('TYPE') || cleanKey.includes('CABINET')) {
+          cabinetType = value.trim();
+        } else if (cleanKey.includes('WIDTH') || cleanKey.includes('HEIGHT') || cleanKey.includes('DEPTH') || cleanKey.includes('SIZE')) {
+          parameters.push(`${cleanKey.replace('_', ' ')}: ${value.trim()}`);
+        }
+      } else if (trimmed.length > 0 && !trimmed.startsWith('#') && !trimmed.startsWith('//')) {
+        // Potential part name or component
+        if (trimmed.length < 50) { // Reasonable part name length
+          parts.push(trimmed);
+        }
+      }
+    });
+
+    // DAT file validation
+    if (parameters.length === 0) {
+      issues.push('No parameters found in DAT file');
+    }
+    if (content.length < 100) {
+      issues.push('DAT file appears to be too small or empty');
+    }
+
+    return {
+      fileName: file.name,
+      fileType: 'DAT',
+      version,
+      cabinetType,
+      parameters,
+      parts,
+      constraints: [],
+      issues,
+      metadata: { 
+        lineCount: lines.length,
+        fileSize: content.length 
+      }
+    };
+  }
+
+  private static parseDesFile(file: File, content: string): ParsedFileData {
+    const parameters: string[] = [];
+    const parts: string[] = [];
+    const constraints: string[] = [];
+    const issues: string[] = [];
+    
+    let cabinetType = 'Mozaik Design File';
+    let version = 'DES 1.0';
+
+    // Parse DES (Design) file structure
+    const lines = content.split('\n').filter(line => line.trim());
+    let currentSection = '';
+    
+    lines.forEach(line => {
+      const trimmed = line.trim();
+      
+      // Check for section headers
+      if (trimmed.startsWith('[') && trimmed.endsWith(']')) {
+        currentSection = trimmed.slice(1, -1).toUpperCase();
+        return;
+      }
+      
+      if (trimmed.includes('=')) {
+        const [key, value] = trimmed.split('=');
+        const cleanKey = key.trim().toUpperCase();
+        const cleanValue = value.trim();
+        
+        if (cleanKey.includes('VERSION')) {
+          version = cleanValue;
+        } else if (cleanKey.includes('TYPE') || cleanKey.includes('CABINET')) {
+          cabinetType = cleanValue;
+        } else if (currentSection === 'DIMENSIONS' || cleanKey.includes('WIDTH') || cleanKey.includes('HEIGHT') || cleanKey.includes('DEPTH')) {
+          parameters.push(`${cleanKey.replace('_', ' ')}: ${cleanValue}`);
+        } else if (currentSection === 'CONSTRAINTS' || cleanKey.includes('CONSTRAINT') || cleanKey.includes('RULE')) {
+          constraints.push(`${cleanKey}: ${cleanValue}`);
+        }
+      } else if (currentSection === 'PARTS' && trimmed.length > 0) {
+        parts.push(trimmed);
+      }
+    });
+
+    // DES file validation
+    if (!parameters.some(p => p.includes('WIDTH'))) {
+      issues.push('Missing width specification in design file');
+    }
+    if (!parameters.some(p => p.includes('HEIGHT'))) {
+      issues.push('Missing height specification in design file');
+    }
+    if (parts.length === 0) {
+      issues.push('No parts defined in design file');
+    }
+
+    return {
+      fileName: file.name,
+      fileType: 'DES',
+      version,
+      cabinetType,
+      parameters,
+      parts,
+      constraints,
+      issues,
+      metadata: { 
+        lineCount: lines.length,
+        sectionsFound: currentSection ? 1 : 0
+      }
+    };
   }
 
   private static parseXMLFile(file: File, content: string): ParsedFileData {
@@ -98,114 +275,6 @@ export class FileParser {
     } catch (error) {
       throw new Error(`XML parsing failed: ${error instanceof Error ? error.message : 'Unknown error'}`);
     }
-  }
-
-  private static parseCABFile(file: File, content: string): ParsedFileData {
-    // CAB file parsing logic - simplified for demo
-    const lines = content.split('\n').filter(line => line.trim());
-    const parameters: string[] = [];
-    const parts: string[] = [];
-    const issues: string[] = [];
-    
-    let cabinetType = 'Unknown Cabinet';
-    let version = 'Unknown';
-
-    // Extract basic info from CAB file format
-    lines.forEach(line => {
-      const trimmed = line.trim();
-      
-      if (trimmed.startsWith('VERSION=')) {
-        version = trimmed.substring(8);
-      } else if (trimmed.startsWith('CABINET_TYPE=')) {
-        cabinetType = trimmed.substring(13);
-      } else if (trimmed.startsWith('WIDTH=') || trimmed.startsWith('HEIGHT=') || trimmed.startsWith('DEPTH=')) {
-        parameters.push(trimmed.replace('=', ': ').replace('_', ' '));
-      } else if (trimmed.startsWith('PART_')) {
-        parts.push(trimmed.substring(5));
-      }
-    });
-
-    // Basic validation
-    if (!parameters.some(p => p.includes('WIDTH'))) {
-      issues.push('Missing width specification');
-    }
-    if (!parameters.some(p => p.includes('HEIGHT'))) {
-      issues.push('Missing height specification');
-    }
-
-    return {
-      fileName: file.name,
-      fileType: 'CAB',
-      version,
-      cabinetType,
-      parameters,
-      parts,
-      constraints: [],
-      issues,
-      metadata: { lineCount: lines.length }
-    };
-  }
-
-  private static parseMZBFile(file: File, content: string): ParsedFileData {
-    // MZB (Mozaik) file parsing logic
-    const parameters: string[] = [];
-    const parts: string[] = [];
-    const issues: string[] = [];
-    
-    // Simulate Mozaik file structure parsing
-    const sections = content.split('[').filter(section => section.trim());
-    let cabinetType = 'Mozaik Cabinet';
-    let version = 'MZB 1.0';
-
-    sections.forEach(section => {
-      const lines = section.split('\n');
-      const sectionName = lines[0]?.replace(']', '').trim();
-      
-      if (sectionName === 'GENERAL') {
-        lines.slice(1).forEach(line => {
-          if (line.includes('=')) {
-            const [key, value] = line.split('=');
-            if (key.trim().toLowerCase().includes('type')) {
-              cabinetType = value.trim();
-            } else if (key.trim().toLowerCase().includes('version')) {
-              version = value.trim();
-            }
-          }
-        });
-      } else if (sectionName === 'DIMENSIONS') {
-        lines.slice(1).forEach(line => {
-          if (line.includes('=')) {
-            parameters.push(line.trim());
-          }
-        });
-      } else if (sectionName === 'PARTS') {
-        lines.slice(1).forEach(line => {
-          if (line.trim() && !line.includes('=')) {
-            parts.push(line.trim());
-          }
-        });
-      }
-    });
-
-    // Detect common Mozaik issues
-    if (parameters.length === 0) {
-      issues.push('No dimensions found in MZB file');
-    }
-    if (parts.length === 0) {
-      issues.push('No parts defined in cabinet');
-    }
-
-    return {
-      fileName: file.name,
-      fileType: 'MZB',
-      version,
-      cabinetType,
-      parameters,
-      parts,
-      constraints: [],
-      issues,
-      metadata: { sectionCount: sections.length }
-    };
   }
 
   private static extractXMLMetadata(xmlDoc: Document): Record<string, any> {

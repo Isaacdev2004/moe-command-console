@@ -1,4 +1,3 @@
-
 import React, { useCallback, useState } from 'react';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -11,7 +10,7 @@ interface UploadAreaProps {
 
 const UploadArea: React.FC<UploadAreaProps> = ({ onFileSelect, isUploading }) => {
   const [dragActive, setDragActive] = useState(false);
-  const supportedFormats = ['.cab', '.cabx', '.mzb', '.xml'];
+  const supportedFormats = ['.moz', '.dat', '.des', '.xml'];
 
   const handleDrag = useCallback((e: React.DragEvent) => {
     e.preventDefault();
@@ -105,7 +104,7 @@ const UploadArea: React.FC<UploadAreaProps> = ({ onFileSelect, isUploading }) =>
         
         <input
           type="file"
-          accept="application/xml,.xml,.cab,.cabx,.mzb,*/*"
+          accept=".moz,.dat,.des,.xml"
           onChange={handleFileInput}
           className="hidden"
           id="file-upload"
