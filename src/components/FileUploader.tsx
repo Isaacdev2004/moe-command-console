@@ -7,6 +7,7 @@ import FileInfo from './FileUpload/FileInfo';
 import AnalysisResults from './FileUpload/AnalysisResults';
 import { FileParser } from '@/utils/fileParser';
 import { MetadataValidator } from '@/utils/metadataValidator';
+import { useRAGContext } from '@/hooks/useRAGContext';
 
 interface FileAnalysis {
   fileName: string;
@@ -26,6 +27,8 @@ const FileUploader: React.FC = () => {
   const [analysis, setAnalysis] = useState<FileAnalysis | null>(null);
   const [analyzing, setAnalyzing] = useState(false);
   const [qualityReport, setQualityReport] = useState<string>('');
+
+  const { processFile, isProcessing } = useRAGContext();
 
   const handleFileSelect = async (file: File) => {
     console.log('File selected:', file.name, file.size, 'bytes');
@@ -69,11 +72,24 @@ const FileUploader: React.FC = () => {
         setAnalysis(analysisData);
         setQualityReport(report);
         
+        // Process file content for RAG
+        const fileContent = await file.text();
+        const ragMetadata = {
+          fileType: parseResult.fileType,
+          version: parseResult.version,
+          cabinetType: parseResult.cabinetType,
+          qualityScore: validation.score,
+          processedAt: new Date().toISOString()
+        };
+        
+        // Add to RAG knowledge base
+        await processFile(file.name, fileContent, ragMetadata);
+        
         // Show toast notification
         if (validation.isValid) {
-          toast.success(`Analysis complete! Quality score: ${validation.score}/100`);
+          toast.success(`Analysis complete! Quality score: ${validation.score}/100 - Added to knowledge base`);
         } else {
-          toast.warning(`Analysis complete with ${validation.issues.length} issues`);
+          toast.warning(`Analysis complete with ${validation.issues.length} issues - Added to knowledge base`);
         }
       }
     } catch (error) {
@@ -105,31 +121,31 @@ const FileUploader: React.FC = () => {
           <div className="terminal-header">
             <div className="flex items-center space-x-2">
               <Zap className="w-4 h-4 text-primary animate-pulse" />
-              <span className="text-primary font-terminal text-sm">FILE_ANALYZER_v2.exe</span>
+              <span className="text-primary font-terminal text-sm">FILE_ANALYZER_RAG_v3.exe</span>
             </div>
           </div>
           <div className="terminal-content">
             <h2 className="text-2xl md:text-3xl lg:text-4xl font-terminal text-primary mb-2">
-              Advanced File Analysis
+              Advanced File Analysis + RAG
             </h2>
             <p className="text-primary/70 font-mono text-sm md:text-base">
-              Upload Mozaik files for comprehensive parsing and validation
+              Upload Mozaik files for comprehensive parsing, validation, and knowledge base integration
             </p>
           </div>
         </div>
 
         {!uploadedFile ? (
-          <UploadArea onFileSelect={handleFileSelect} isUploading={analyzing} />
+          <UploadArea onFileSelect={handleFileSelect} isUploading={analyzing || isProcessing} />
         ) : (
           <div className="space-y-4 md:space-y-6">
             <FileInfo 
               file={uploadedFile} 
-              isAnalyzing={analyzing} 
+              isAnalyzing={analyzing || isProcessing} 
               hasAnalysis={!!analysis}
               onReset={resetUpload}
             />
             
-            {analyzing && (
+            {(analyzing || isProcessing) && (
               <div className="text-center py-8">
                 <div className="inline-flex items-center space-x-3 text-primary">
                   <div className="flex space-x-1">
@@ -138,13 +154,13 @@ const FileUploader: React.FC = () => {
                     <div className="w-2 h-2 bg-primary rounded-full animate-bounce" style={{animationDelay: '0.2s'}}></div>
                   </div>
                   <span className="font-terminal animate-pulse">
-                    ANALYZING FILE STRUCTURE...
+                    {analyzing ? 'ANALYZING FILE STRUCTURE...' : 'ADDING TO KNOWLEDGE BASE...'}
                   </span>
                 </div>
               </div>
             )}
             
-            {!analyzing && analysis && (
+            {!analyzing && !isProcessing && analysis && (
               <AnalysisResults data={analysis} qualityReport={qualityReport} />
             )}
           </div>
