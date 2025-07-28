@@ -169,7 +169,7 @@ const EnhancedChatTerminal: React.FC<EnhancedChatTerminalProps> = ({
                         {message.timestamp.toLocaleTimeString()}
                       </span>
                       {message.hasContext && (
-                        <Brain className="w-3 h-3 text-terminal-green" title="Response enhanced with file context" />
+                        <Brain className="w-3 h-3 text-terminal-green" />
                       )}
                     </div>
                     
